@@ -25,7 +25,7 @@ const createUser = async (req, res) => {
 const getAllUser = async (req, res) => {
   try {
     const allUsers = await userModel.find();
-    res.json(allUsers);
+    res.json({ allUsers });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -35,9 +35,9 @@ const getUser = async (req, res) => {
   try {
     const user = await userModel.findById(id);
     if (user === null) {
-      res.json(`no user available with this id -${id}`);
+      res.json({ message: `no user available with this id -${id}` });
     } else {
-      res.json(user);
+      res.json({ user });
     }
   } catch (error) {
     console.log(error);
@@ -51,9 +51,9 @@ const updateUser = async (req, res) => {
   try {
     updated = await userModel.findByIdAndUpdate(id, updatedBody, options);
     if (updated == null) {
-      res.json(`no user available with this id -${id}`);
+      res.json({ message: `no user available with this id -${id}` });
     } else {
-      res.json(updated);
+      res.json({ updated });
     }
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -64,11 +64,11 @@ const deleteUser = async (req, res) => {
   try {
     const result = await userModel.findByIdAndDelete(id);
     if (result == null) {
-      res.json(
-        `no user available with this id -${id} or user has already deleted`
-      );
+      res.json({
+        message: `no user available with this id -${id} or user has already deleted`,
+      });
     } else {
-      res.json(`this user - ${result.name} - has deleted`);
+      res.json({ message: `this user - ${result.name} - has deleted` });
     }
   } catch (error) {
     res.status(400).json({ message: error.message });

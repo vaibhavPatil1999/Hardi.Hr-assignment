@@ -10,7 +10,7 @@ const {
 } = require("../controllers/controllers");
 const auth = require("../middleware/auth");
 router.post("/admin", adminRegistration);
-router.post("/createUser", createUser);
+router.post("/createUser",auth,createUser);
 router.get("/getAllUser", auth, getAllUser);
 router.get("/getUser/:id", auth, getUser);
 router.put("/updateUser/:id", auth, updateUser);
